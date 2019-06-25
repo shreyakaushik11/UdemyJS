@@ -91,4 +91,111 @@ var anonymousGreet = function(){
 
 anonymousGreet();
 
+function log(a){
+  console.log(a);
+  //a();
+}
 
+log(3);
+log("Hello");
+log({fn:"riya", ln:"malhotra"});
+log(function(){
+     console.log("Hi");
+});
+
+
+//by value(for primitive types)
+
+var a = 2;
+var b;
+b=a;
+a=3
+console.log(a);
+console.log(b);
+
+//by reference(for all objects including functions)
+
+var x = {greeting: 'hi'};
+var y;
+y = x;
+x.greeting = 'hello';
+console.log(x);
+console.log(y);
+
+//y.greeting = 'hola';
+
+//by reference(even as parameters)
+
+function changeGreeting(obj){
+  obj.greeting='hola';
+}
+
+changeGreeting(y);
+console.log(x);
+console.log(y);
+
+//equals operator sets up new memory space
+
+x = {greeting:'how you doing'};
+console.log(x);
+console.log(y);
+
+//this 
+
+function abc(){
+  console.log(this);
+  this.newvariable = 'hello';
+}
+
+var b = function(){
+  console.log(this);
+}
+
+abc();
+
+console.log(newvariable);
+
+b();
+
+var c = {
+    name: 'the c object',
+    log: function() {
+         var self = this;
+         self.name = 'updated c object';
+         console.log(self);
+         var setname = function(newname){
+            self.name = newname;
+         }
+         setname('Updated the c object again');
+         console.log(self);
+    }
+}
+c.log();
+
+//array
+
+var arr = [1, false, { name: 'Tony' , address: '111 Main St.'}, 
+          function(name){
+             var greeting = 'Hello ' + name;
+             console.log(greeting);
+           }, "hello"
+];
+
+console.log(arr);
+//calling the function in array
+arr[3](arr[2].name);
+
+//using arguments
+
+function letsgreet(firstname, lastname, language){
+    console.log(firstname);
+    console.log(lastname);
+    console.log(language);
+}
+
+letsgreet(); //we can call function without args
+letsgreet("John");
+letsgreet("John", "Doe");
+letsgreet("John", "Doe", "en");
+
+ 
