@@ -188,14 +188,60 @@ arr[3](arr[2].name);
 //using arguments
 
 function letsgreet(firstname, lastname, language){
+
+    if(arguments.length===0){
+      console.log("Missing arguments");
+    }
+    language = language || 'es';
     console.log(firstname);
     console.log(lastname);
     console.log(language);
+    console.log('arg[0]: '+arguments[0]); 
+    console.log(arguments); //shows the parameters that i've passed
 }
 
 letsgreet(); //we can call function without args
 letsgreet("John");
 letsgreet("John", "Doe");
 letsgreet("John", "Doe", "en");
+
+//using function statement
+
+function sayHi(name){
+  console.log("Hi "+ name);
+}
+
+sayHi('Ashley');
+
+//using function expression
+
+var hiFunc = function(name){
+  console.log("Hi "+ name);
+}
+
+hiFunc('Taylor');
+
+//using Immediately Invoked Function Expression(IIFE)
+
+var sayhi = function(name){
+  console.log("Hi "+ name);
+}('Zayn'); //calling immediately using parentheses
+//console.log(sayhi())
+//cannot call the function like above now because sayhi is now a string
+
+
+//converting function statement into function expression
+
+
+(function(name) {
+   var greeting = 'Hello';
+   console.log(greeting +' '+ name);
+}('John')); //we can also invoke outside the parentheses like this })('John')
+
+
+
+
+
+   
 
  
