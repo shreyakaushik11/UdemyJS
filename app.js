@@ -239,9 +239,127 @@ var sayhi = function(name){
 }('John')); //we can also invoke outside the parentheses like this })('John')
 
 
+//closures
+
+function saySomething(whattosay){
+    return function(name){
+       console.log(whattosay + ' ' + name);
+     }
+}
+
+saySomething('Hello')('Tom');
+var sayHola = saySomething('Hola');
+sayHola('Tom');
 
 
+function funcStatement(){
+  var arr = [];
+  for(var i=0; i<4; i++){
+     arr.push(function(){
+         console.log(i);
+      });
+   }
+   return arr;
+}
+var fs = funcStatement();
+fs[0]();
+fs[1]();
+fs[2]();
+fs[3]();
 
-   
+//another way to write above code to get output as 0 1 2 3
+
+function funcStatement2(){
+  var arr = [];
+  for(var i=0; i<4; i++){
+     let j = i;
+     arr.push(function(){
+         console.log(j);
+      });
+   }
+   return arr;
+}
+
+var fs2 = funcStatement2();
+fs2[0]();
+fs2[1]();
+fs2[2]();
+fs2[3]();
+ 
+//callback
+
+function sayHiLater(){
+  var greeting = 'Hi';
+  setTimeout(function(){
+      console.log(greeting);
+  }, 3000);
+}
+
+sayHiLater();
+
+//bind()
+
+var person = {
+  firstname : 'John',
+  lastname : 'Doe',
+  getFullName : function(){
+     var fullname = this.firstname + ' ' + this.lastname;
+     return fullname;
+   }
+}
+
+var logName = function(lang1, lang2){
+  console.log("Logged: " + this.getFullName());
+  console.log("Arguments: " + lang1 + " " + lang2);
+}.bind(person);
+
+//var logPersonName = logName.bind(person);
+
+//logPersonName();
+logName(); 
+
+//call
+logName.call(person, 'en', 'es');  
+
+//apply
+logName.apply(person, ['en', 'es']);  
+
+
+function occurence(){
+
+var arr = [0, 0, 0, 1, 2, 3, 0, 2, 3, 4];
+var obj = {};
+var count = 0;
+for (var i=0; i<arr.length; i++){
+  for(var j=1; j<arr.length; j++){
+    if(arr[i]===arr[j]){
+        count++;
+   }
+  //obj={arr[i] : count};
+  obj[arr[i]]=count;
+}
+count = 0;
+}
+console.log(obj);
+}
+
+occurence();
+
+//apply
+
+(function(lang1, lang2){
+  console.log("Logged: " + this.getFullName());
+  console.log("Arguments: " + lang1 + " " + lang2);
+}).apply(person, ['en', 'es']);
+
+
+//function borrowing
+
+var person2 = {
+  firstname: 'Alicia',
+  lastname: 'Keys'
+};
+
+console.log(person.getFullName.apply(person2));
 
  
