@@ -522,7 +522,8 @@ function mapForEach(arr, fn){
      newArr.push(
         fn(arr[i])
       )
-    }
+    };
+
    return newArr;
 }
 
@@ -540,3 +541,11 @@ var arr3 = mapForEach(arr1, function(item){
 console.log(arr2);
 console.log(arr3);
 
+var checkPastLimit = function(limiter){
+   return function(limiter, item){
+      return item>limiter
+   }.bind(this, limiter)
+};
+
+var arr4 = mapForEach(arr1, checkPastLimit(1));
+console.log(arr4);
