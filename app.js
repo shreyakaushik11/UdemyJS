@@ -362,4 +362,181 @@ var person2 = {
 
 console.log(person.getFullName.apply(person2));
 
- 
+
+//function currying
+
+function multiply(a, b){
+  return a*b;
+}
+
+var multipleOfTwo = multiply.bind(this, 2) //it sets value of a to 2
+console.log(multipleOfTwo(4));
+var multipleByTwo = multiply.bind(this, 2, 5) //it sets value of a to 2 and b to 5
+console.log(multipleByTwo());
+console.log(multipleByTwo(9)); //the result will still be 10 
+var multiple = multiply.bind(this) //not setting any value for a and b
+console.log(multiple(5, 6));
+
+var obj = {};
+var fun = function(){ };
+var array = [];
+
+//reflection and extend
+
+var person = {
+  firstname : 'Default',
+  lastname : 'Default',
+  getFullName : function(){
+    return this.firstname + ' ' + this.lastname;
+  }
+}
+
+var john = {
+  firstname : 'John',
+  lastname : 'Doe'
+}
+
+john.__proto__ = person;
+
+for(var prop in john){
+  if(john.hasOwnProperty(prop)){
+    console.log(prop + ' : ' + john[prop]);
+  }
+}
+
+var jane = {
+  address : '111 Main St.',
+  getFormalName : function(){
+    return this.lastname + ', ' + this.firstname;
+  }
+}
+
+var jim = {
+  getFirstName : function(){
+     return this.firstname;
+  }
+}
+
+//use underscore.js for this
+//_.extend(john, jane, jim);
+//console.log(john);
+
+//creating object using new keyword
+
+//function constructor
+function Someone(firstname, lastname){
+  console.log(this);
+  this.firstname = firstname; //this refers to the empty object
+  this.lastname = lastname;
+  console.log('this function is invoked');
+  //return { hi : 'i got in the way'};
+}
+//Someone();
+
+//prototype
+
+Someone.prototype.getFullName = function(){
+  return this.firstname + ' ' + this.lastname;
+}
+
+var doe = new Someone('John', 'Doe');
+console.log(doe);
+
+var ashley = new Someone('Ashley', 'Frangipane');
+console.log(ashley);
+
+
+//adding a function to a built-in function constructor using prototype
+
+String.prototype.isLengthGreaterThan = function(limit){
+   return this.length > limit;
+}
+
+console.log("Jim".isLengthGreaterThan(3));
+
+Number.prototype.isPositive = function(){
+  return this>0;
+}
+
+var x = new Number(3);
+console.log(x.isPositive());
+
+//use of for array and in for object
+arr = [1, 2, 3];
+
+for (var i of arr){
+ console.log(i);
+}
+
+//object.create
+
+var human = {
+  firstname : 'Default',
+  lastname : 'Default',
+  greet: function (){
+     console.log('Hi '+this.firstname);
+  }
+}
+
+var kim = Object.create(human);
+kim.firstname = 'Kim';
+kim.lastname = 'Jonas';
+console.log(kim);
+
+//initialization of array of objects
+
+var people = [
+ { firstname : 'Sophie',
+   lastname : 'Turner',
+   addresses : [
+       '111 Main St.',
+       '222 Second St.'
+    ]
+ },
+ { firstname : 'Maisie',
+   lastname : 'Williams',
+   address: '333 Third Street',
+   greet : function(){
+     console.log('Hello ' + this.firstname);
+     }
+  }
+];
+
+console.log(people[1].greet());
+
+//strict mode
+
+function logNewPerson(){
+  "use strict"; //we can use it inside a function or at the top of file
+  var person;
+  person = {};
+  console.log(person);
+}
+
+logNewPerson();
+                
+
+function mapForEach(arr, fn){
+  var newArr = [];
+  for( var i=0; i<arr.length; i++){
+     newArr.push(
+        fn(arr[i])
+      )
+    }
+   return newArr;
+}
+
+var arr1 = [1,2,3];
+console.log(arr1);
+
+var arr2 = mapForEach(arr1, function(item){
+  return item*2;
+});
+
+var arr3 = mapForEach(arr1, function(item){
+  return item>2;
+});
+
+console.log(arr2);
+console.log(arr3);
+
